@@ -1,5 +1,7 @@
 {
   "name": "custom-badges",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "devDependencies": {
+    "badge-maker": "3.3.0"
+  }
 }
-
