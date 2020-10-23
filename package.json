@@ -2,6 +2,7 @@
   "name": "custom-badges",
   "version": "1.0.0",
   "devDependencies": {
-    "badge-maker": "3.3.0"
+    "badge-maker": "3.3.0",
+    "npm-check": "^5.9.2"
   }
 }
