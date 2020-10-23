@@ -1,1 +1,1 @@
-# Custom Badges ![version](./badges/version.svg)
+# Custom Badges ![version](./badges/version.svg) ![outdated](badges/outdated.svg)
