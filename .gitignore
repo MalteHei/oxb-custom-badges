@@ -2,3 +2,5 @@
 node_modules/
 assets/**/*
 !assets/badges.sh
+!assets/badges.png
+!assets/badges_*.png
