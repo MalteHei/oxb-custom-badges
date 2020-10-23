@@ -1,8 +1,12 @@
 {
   "name": "custom-badges",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "scripts": {
+    "postinstall": "npm run badges:make",
+    "badges:make": "node scripts/badges.js"
+  },
   "devDependencies": {
     "badge-maker": "3.3.0",
-    "npm-check": "^5.9.2"
+    "npm-check": "5.9.2"
   }
 }
