@@ -9,24 +9,23 @@ fs.mkdir('badges', err => {
 });
 
 
-// create & save badge 'version'
+// badge 'version'
 const version = require('../package.json').version;
 const svgVersion = makeBadge({
-  label: 'Version',
+  label: 'version',
   message: version,
   color: 'blue',
 });
-
 fs.writeFile('badges/version.svg', svgVersion, err => {
   if (err) console.error(err);
 });
 
 
-// create & save badge 'outdated packages'
+// badge 'outdated packages'
 npmCheck().then(state => {
   const numOutdated = state.get('packages').filter(pkg => !!pkg.bump).length;
   const svgOutdated = makeBadge({
-    label: 'Outdated',
+    label: 'outdated',
     message: String(numOutdated),
     color: (numOutdated === 0 ? 'green' : 'red'),
   });
@@ -34,4 +33,18 @@ npmCheck().then(state => {
   fs.writeFile('badges/outdated.svg', svgOutdated, err => {
     if (err) console.error(err);
   });
+});
+
+
+// badge 'last updated'
+const today = new Date()
+  .toISOString()
+  .replace(/T.*/, '');
+const svgLastUpdated = makeBadge({
+  label: 'last updated',
+  message: today,
+  color: 'blue',
+});
+fs.writeFile('badges/last_updated.svg', svgLastUpdated, err => {
+  if(err) console.error(err);
 });

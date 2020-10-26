@@ -10,12 +10,12 @@ Der fertige Code kann [hier](https://github.com/MalteHei/custom-badges) gefunden
 
 
 ## Aussgangssituation
-Wir entwickeln eine versionierte Webseite, deren Sourcen auf einem unternehmensinternen Server liegt (z.B. GitLab). Die Abhängigkeiten unserer Webseite managen wir mit [npm](https://www.npmjs.com/).
+Wir entwickeln eine versionierte Webseite, deren Quellcode auf einem unternehmensinternen Server liegt (z.B. GitLab). Die Abhängigkeiten unserer Webseite managen wir mit [npm](https://www.npmjs.com/).
 
 ### Badges erstellen
-Natürlich sind uns keine Grenzen gesetzt, welchen Inhalt unsere Badges haben werden. Doch für einen leichten Einstieg demonstriere ich nun, wie wir eine Badge erstellen können, welche die aktuelle Version unseres Projekts beinhaltet.
+Natürlich sind uns keine Grenzen gesetzt, welchen Inhalt unsere Badges haben werden. Doch für einen leichten Einstieg demonstriere ich, wie wir eine Badge erstellen können, welche die aktuelle Version unseres Projekts darstellt.
 
-#### Version anhand der package.json herausfinden
+#### Die Version anhand der package.json herausfinden
 Wenn wir die Version unserer Webseite in der `package.json` pflegen, ist es ein Leichtes, diese programmatisch zu extrahieren:
 ```js
 // scripts/badges.js
@@ -25,7 +25,7 @@ console.log(version);
 ```
 Führen wir dieses Skript via `node scripts/badges.js` aus, wird das Attribut `version` aus der `package.json` geladen und schließlich in der Konsole ausgegeben.
 
-#### Skript erweitern
+#### Das Skript erweitern
 Um eine Badge zu erstellen, wird das Paket `badge-maker` benötigt:
 ```bash
 npm install --save-dev badge-maker
@@ -43,12 +43,12 @@ Nun können wir aus der extrahierten Version eine Badge erstellen:
 ```js
 const version = require('../package.json').version;
 const svgVersion = makeBadge({
-  label: 'Version',
+  label: 'version',
   message: version,
   color: 'blue',
 });
 ```
-Die Funktion `makeBadge()` liefert einen String, der das gewünschte `<svg>`-Element enthält.
+Die Funktion `makeBadge()` liefert einen String, der die Badge im SVG-Format enthält.
 Dafür muss ein Objekt übergeben werden, welches das Format der resultierenden Badge beschreibt (siehe https://www.npmjs.com/package/badge-maker#format).
 
 Gespeichert werden sollen unsere Badges im Verzeichnis `badges/`, welches zunächst erstellt werden muss:
@@ -69,14 +69,15 @@ fs.writeFile('badges/version.svg', svgVersion, err => {
 ```
 Vereinen wir nun diese Codeschnipsel in einem Skript und führen dieses via `node scripts/badges.js` aus, finden wir anschließend ein neues Verzeichnis, `badges/`, welches die Datei `version.svg` beinhaltet.
 
-#### Badge in README einbinden
+#### Die Badge in der README einbinden
 Schließlich müssen wir die jüngst erstelle Badge nur noch in der README einbinden:
 ```md
 <!-- README.md -->
-# Mein Projekt [![version](./badges/version.svg)](https://githost.my-company.com/path/to/project "Mein Projekt")
+# Custom Badges [![version](./badges/version.svg)](https://github.com/MalteHei/custom-badges "Custom Badges auf GitHub")
 ```
+
 #### NPM Skripte erstellen
-Damit die Badges automatisch aktualisiert werden, können wir der `package.json` folgende Skripte hinzufügen:
+Damit die Badges automatisch aktualisiert werden, können wir die `package.json` um folgende Skripte erweitern:
 ```json
 {
   "scripts": {
@@ -98,14 +99,37 @@ const fs = require('fs');
 const npmCheck = require('npm-check');
 
 npmCheck().then(state => {
-  const numOutdated = state.get('packages').filter(pkg => !!pkg.bump).length;
-  const svgOutdated = makeBadge({label: 'Outdated', message: ''+numOutdated, color: (numOutdated === 0 ? 'green' : 'red')});
+  const numOutdated = state.get('packages')
+    .filter(pkg => !!pkg.bump)  // filters packages for those that my be bumped to newer version
+    .length;
+  const svgOutdated = makeBadge({
+    label: 'outdated',
+    message: String(numOutdated),  // convert integer to string
+    color: (numOutdated === 0 ? 'green' : 'red')  // 'green' if everything up to date, else 'red'
+  });
+
   fs.writeFile('badges/outdated.svg', svgOutdated, err => {
     if (err) console.error(err);
   });
 });
 ```
 
-#### noch mehr Badges ??
+#### Letzte Aktualisierung
+```js
+const { makeBadge } = require('badge-maker');
+const fs = require('fs');
+
+const today = new Date()
+  .toISOString()
+  .replace(/T.*/, '');
+const svgLastUpdated = makeBadge({
+  label: 'last updated',
+  message: today,
+  color: 'blue',
+});
+fs.writeFile('badges/last_updated.svg', svgLastUpdated, err => {
+  if(err) console.error(err);
+});
+```
 
 ## Fazit ??
