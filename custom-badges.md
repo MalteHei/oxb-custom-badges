@@ -95,7 +95,6 @@ npm i -D npm-check
 ```
 ```js
 const { makeBadge } = require('badge-maker');
-const fs = require('fs');
 const npmCheck = require('npm-check');
 
 npmCheck().then(state => {
@@ -107,17 +106,12 @@ npmCheck().then(state => {
     message: String(numOutdated),  // convert integer to string
     color: (numOutdated === 0 ? 'green' : 'red')  // 'green' if everything up to date, else 'red'
   });
-
-  fs.writeFile('badges/outdated.svg', svgOutdated, err => {
-    if (err) console.error(err);
-  });
 });
 ```
 
 #### Letzte Aktualisierung
 ```js
 const { makeBadge } = require('badge-maker');
-const fs = require('fs');
 
 const today = new Date()
   .toISOString()  // like '2020-12-31T24:59:59.999Z'
@@ -126,9 +120,6 @@ const svgLastUpdated = makeBadge({
   label: 'last updated',
   message: today,
   color: 'blue',
-});
-fs.writeFile('badges/last_updated.svg', svgLastUpdated, err => {
-  if(err) console.error(err);
 });
 ```
 
