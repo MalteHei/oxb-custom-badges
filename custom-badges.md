@@ -1,9 +1,9 @@
-# Badges für private Repositories erstellen
+# Badges für (private) Repositories erstellen
 ![badges](assets/badges_1.png)
 
 
 ## Einleitung
-Oft sieht man in den READMEs populärer Open Source Projekte eine Vielzahl bunter Badges, die einem eine schnelle Übersicht über den Projektstatus geben sollen.
+Oft sieht man in den READMEs populärer Open Source Projekte eine Vielzahl bunter Badges, die einem eine schnelle Übersicht über den Projektstatus geben sollen. Für öffentliche Projekte gibt es bereits Services wie [Shields.io](https://shields.io/), doch wie kann man Badges für private/unternehmensinterne Projekte erstellen?
 In diesem Artikel wollen wir uns anschauen, wie auch wir eigene Badges erstellen und diese dann in unseren Projekten einbinden können.
 
 Der fertige Code kann [hier](https://github.com/MalteHei/custom-badges) gefunden werden.
@@ -109,6 +109,38 @@ npmCheck().then(state => {
 });
 ```
 
+#### Version einer Abhängigkeit
+```js
+const { makeBadge } = require('badge-maker');
+
+try {
+  const angularVersion = require('./package.json').dependencies['@angular/core'];  // get version of Angular
+} catch (err) {  // error should occur if there are no dependencies or '@angular/core' is not a dependency
+  const angularVersion = 'not used';
+}
+const svgAngularVersion = makeBadge({
+  label: 'angular',
+  message: angularVersion,
+  color: 'red',
+});
+```
+
+#### Anzahl beteiligter Entwickler
+```js
+const { makeBadge } = require('badge-maker');
+
+try {
+  const numContributos = require('./package.json').contributors.length;
+} catch (err) {  // error should occur if there are no contributors
+  const numContributors = 0;
+}
+const svgContributors = makeBadge({
+  label: 'contributors',
+  message: String(numContributors),
+  color: 'blue',
+});
+```
+
 #### Letzte Aktualisierung
 ```js
 const { makeBadge } = require('badge-maker');
@@ -123,4 +155,5 @@ const svgLastUpdated = makeBadge({
 });
 ```
 
-## Fazit
+## Fazit: Einfacher als gedacht!
+Wie wir sehen ist es nicht schwer, ein Projekt mit ansehnlichen Badges zu verzieren, die zusätzlich nützliche Informationen beinhalten.

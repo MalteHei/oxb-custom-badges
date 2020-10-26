@@ -21,7 +21,23 @@ fs.writeFile('badges/version.svg', svgVersion, err => {
 });
 
 
-// badge 'outdated packages'
+// badge 'dependency version'
+const dependency = 'badge-maker';
+let dependencyVersion = 'not used';
+try {
+  dependencyVersion = require('../package.json').devDependencies[dependency];
+} catch (e) {console.error(e);}
+const svgDependencyVersion = makeBadge({
+  label: dependency,
+  message: dependencyVersion,
+  color: 'blue',
+});
+fs.writeFile('badges/dependency_version.svg', svgDependencyVersion, err => {
+  if (err) console.error(err);
+});
+
+
+// badge 'outdated dependencies'
 npmCheck().then(state => {
   const numOutdated = state.get('packages').filter(pkg => !!pkg.bump).length;
   const svgOutdated = makeBadge({
@@ -36,10 +52,23 @@ npmCheck().then(state => {
 });
 
 
+// badge 'contributors'
+let numContributors = 0;
+try {
+  numContributors = require('../package.json').contributors.length;
+} catch (e) {}
+const svgContributors = makeBadge({
+  label: 'contributors',
+  message: String(numContributors),
+  color: 'blue',
+});
+fs.writeFile('badges/contributors.svg', svgContributors, err => {
+  if (err) console.error(err);
+});
+
+
 // badge 'last updated'
-const today = new Date()
-  .toISOString()
-  .replace(/T.*/, '');
+const today = new Date().toISOString().replace(/T.*/, '');
 const svgLastUpdated = makeBadge({
   label: 'last updated',
   message: today,
