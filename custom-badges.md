@@ -120,8 +120,8 @@ const { makeBadge } = require('badge-maker');
 const fs = require('fs');
 
 const today = new Date()
-  .toISOString()
-  .replace(/T.*/, '');
+  .toISOString()  // like '2020-12-31T24:59:59.999Z'
+  .replace(/T.*/, '');  // remove 'T' and everything beyond that
 const svgLastUpdated = makeBadge({
   label: 'last updated',
   message: today,
@@ -132,4 +132,4 @@ fs.writeFile('badges/last_updated.svg', svgLastUpdated, err => {
 });
 ```
 
-## Fazit ??
+## Fazit
