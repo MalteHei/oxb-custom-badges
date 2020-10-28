@@ -9,7 +9,7 @@ In diesem Artikel wollen wir uns anschauen, wie auch wir eigene Badges erstellen
 Der fertige Code kann [hier](https://github.com/MalteHei/custom-badges) gefunden werden.
 
 
-## Aussgangssituation
+## Ausgangssituation
 Wir entwickeln eine versionierte Webseite, deren Quellcode auf einem unternehmensinternen Server liegt (z.B. GitLab). Die Abhängigkeiten unserer Webseite managen wir mit [npm](https://www.npmjs.com/).
 
 ### Badges erstellen
@@ -48,7 +48,7 @@ const svgVersion = makeBadge({
   color: 'blue',
 });
 ```
-Die Funktion `makeBadge()` liefert einen String, der die Badge im SVG-Format enthält.
+Die Funktion `makeBadge()` liefert einen String mit der Badge im SVG-Format.
 Dafür muss ein Objekt übergeben werden, welches das Format der resultierenden Badge beschreibt (siehe https://www.npmjs.com/package/badge-maker#format).
 
 Gespeichert werden sollen unsere Badges im Verzeichnis `badges/`, welches zunächst erstellt werden muss:
@@ -76,8 +76,8 @@ Schließlich müssen wir die jüngst erstelle Badge nur noch in der README einbi
 # Custom Badges [![version](./badges/version.svg)](https://github.com/MalteHei/custom-badges "Custom Badges auf GitHub")
 ```
 
-#### NPM Skripte erstellen
-Damit die Badges automatisch aktualisiert werden, können wir die `package.json` um folgende Skripte erweitern:
+#### Das Erstellen der Badges automatisieren
+Damit wir die Badges nicht jedes Mal manuell aktualisieren müssen, können wir deren Erstellung automatisieren. Dazu erweitern wir die `package.json` um folgende Skripte:
 ```json
 {
   "scripts": {
@@ -86,7 +86,10 @@ Damit die Badges automatisch aktualisiert werden, können wir die `package.json`
   }
 }
 ```
->Alternativ könnte man auch die CI-Pipeline um einen Job erweitern, der die Badges immer dann generiert, wenn Änderungen an der `package.json` vorgenommen wurden.
+Nun werden die Badges jedes Mal neu erstellt, nachdem ein `npm install` ausgeführt wurde.
+>Voraussetzung hierfür ist natürlich, dass es einen anderen Automatismus (GitLab CI/CD, GitHub Actions uws.) gibt, der z.B. bei jedem Push auf den Server ein `npm install` triggert.
+
+>Alternativ könnte man auch die CI-Pipeline direkt um einen Job erweitern, der die Badges immer dann generiert, wenn bestimmte Konditionen eintreten (bei Versions-Badge z.B. Änderungen an der `package.json`).
 
 ### Noch mehr Badges!
 #### Anzahl veralteter Abhängigkeiten
@@ -114,7 +117,7 @@ npmCheck().then(state => {
 const { makeBadge } = require('badge-maker');
 
 try {
-  const angularVersion = require('./package.json').dependencies['@angular/core'];  // get version of Angular
+  const angularVersion = require('../package.json').dependencies['@angular/core'];  // get version of Angular
 } catch (err) {  // error should occur if there are no dependencies or '@angular/core' is not a dependency
   const angularVersion = 'not used';
 }
@@ -130,7 +133,7 @@ const svgAngularVersion = makeBadge({
 const { makeBadge } = require('badge-maker');
 
 try {
-  const numContributos = require('./package.json').contributors.length;
+  const numContributors = require('../package.json').contributors.length;
 } catch (err) {  // error should occur if there are no contributors
   const numContributors = 0;
 }
@@ -141,7 +144,7 @@ const svgContributors = makeBadge({
 });
 ```
 
-#### Letzte Aktualisierung
+#### Letzte Modifizierung am Projekt
 ```js
 const { makeBadge } = require('badge-maker');
 
@@ -155,5 +158,6 @@ const svgLastUpdated = makeBadge({
 });
 ```
 
+
 ## Fazit: Einfacher als gedacht!
-Wie wir sehen ist es nicht schwer, ein Projekt mit ansehnlichen Badges zu verzieren, die zusätzlich nützliche Informationen beinhalten.
+In diesem Beitrag wurde gezeigt, wie Badges für ein Projekt mithilfe von `badge-maker` (https://www.npmjs.com/package/badge-maker) erstellt werden können. Diese Badges können nützliche Informationen auf einen Blick liefern, wie zum Beispiel die aktuelle Version des Projektes. Dabei ist _nicht_ relevant, ob das Projekt nur privat, auf einem eigenen Server, oder öffentlich verfügbar ist. Uns sind bei der Erstellung also keine Grenzen gesetzt!

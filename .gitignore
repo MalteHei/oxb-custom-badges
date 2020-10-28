@@ -1,5 +1,7 @@
 .vscode/
 node_modules/
+*.html
+*.pdf
 assets/**/*
 !assets/badges.sh
 !assets/badges.png
