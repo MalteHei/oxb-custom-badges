@@ -2,7 +2,7 @@
 node_modules/
 *.html
 *.pdf
-assets/**/*
+assets/*.svg
 !assets/badges.sh
 !assets/badges.png
 !assets/badges_*.png
