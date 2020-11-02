@@ -53,7 +53,7 @@ Die Funktion `makeBadge()` liefert einen String mit der Badge im SVG-Format.
 Ihr muss ein Objekt übergeben werden, in dem das Format der Badge beschrieben wird (siehe https://www.npmjs.com/package/badge-maker#format).
 
 In unserem Beispiel erhalten wir folgende Badge:<br>
-![version](assets/version.svg)
+![version](assets/badges/version.svg)
 
 Gespeichert werden sollen unsere Badges im Verzeichnis `badges/`, welches zunächst erstellt werden muss:
 ```js
@@ -97,7 +97,7 @@ Nun werden die Badges jedes Mal neu erstellt, nachdem `npm install` ausgeführt 
 >Je nach Inhalt der Badge kann es natürlich sinnigere Trigger geben.
 
 ## Noch mehr Badges!
-### Anzahl veralteter Abhängigkeiten ![veraltet](assets/outdated.svg)
+### Anzahl veralteter Abhängigkeiten ![veraltet](assets/badges/outdated.svg)
 Folgende Badge zeigt an, wie viele Abhängigkeiten veraltet sind. Dies ist hilfreich, um immer auf dem neusten Stand zu bleiben. Um diese Anzahl herauszufinden, kann das Paket `npm-check` verwendet werden:
 ```bash
 npm i -D npm-check
@@ -121,7 +121,7 @@ npmCheck().then(state => {
 });
 ```
 
-### Version einer Abhängigkeit ![angular version](assets/version_angular.svg)
+### Version einer Abhängigkeit ![angular version](assets/badges/version_angular.svg)
 Um die Version einer einzelnen Abhängigkeit anzuzeigen, kann wie bei der Version des Projekts wieder auf die `package.json` zugegriffen werden. Dies sollte nur für elementare Abhängigkeiten geschehen (z.B. nur für `angular` in einem Angular-Projekt).
 ```js
 try {
@@ -133,7 +133,7 @@ try {
 // writeFile...
 ```
 
-### Letzte Modifizierung am Projekt ![last updated](assets/last_updated.svg)
+### Letzte Modifizierung am Projekt ![last updated](assets/badges/last_updated.svg)
 Um das Datum der letzten Modifizierung anzuzeigen, kann folgender Ausdruck verwendet werden. Dies ist hilfreich um in Erfahrung zu bringen, wann zuletzt am Projekt gearbeitet wurde.
 ```js
 const today = new Date()
