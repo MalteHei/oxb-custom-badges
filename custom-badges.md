@@ -11,7 +11,7 @@ Der fertige Code kann [hier](https://github.com/MalteHei/custom-badges) gefunden
 Wir entwickeln eine versionierte Webseite, deren Quellcode auf einem unternehmensinternen Server liegt (z.B. GitLab). Die Abhängigkeiten unserer Webseite managen wir mit [npm](https://www.npmjs.com/).
 
 ## Badges erstellen
-Natürlich sind uns keine Grenzen gesetzt, welchen Inhalt unsere Badges haben werden. Doch für einen leichten Einstieg demonstriere ich, wie wir eine Badge erstellen können, welche die aktuelle Version unseres Projekts darstellt.
+Natürlich sind uns keine Grenzen gesetzt, welchen Inhalt unsere Badges haben werden. Doch für einen leichten Einstieg demonstriere ich, wie wir ein Badge erstellen können, welche die aktuelle Version unseres Projekts darstellt.
 
 ### Die Version anhand der package.json herausfinden
 Wenn wir die Version unserer Webseite in der `package.json` pflegen, ist es ein Leichtes, diese programmatisch zu extrahieren:
@@ -24,7 +24,7 @@ console.log(version);
 Führen wir dieses Skript via `node scripts/badges.js` aus, wird das Attribut `version` aus der `package.json` geladen und schließlich in der Konsole ausgegeben.
 
 ### Das Skript erweitern
-Um eine Badge zu erstellen, wird das Paket `badge-maker` benötigt:
+Um ein Badge zu erstellen, wird das Paket `badge-maker` benötigt:
 ```bash
 npm install --save-dev badge-maker
 ```
@@ -40,7 +40,7 @@ const fs = require('fs');
 ```
 >`fs` ermöglicht Interaktionen mit dem Dateisystem und wird spätestens benötigt, sobald wir der Badge in einer Datei speichern wollen.
 
-Nun können wir aus der extrahierten Version eine Badge erstellen:
+Nun können wir aus der extrahierten Version ein Badge erstellen:
 ```js
 const version = require('../package.json').version;
 const svgVersion = makeBadge({
@@ -52,7 +52,7 @@ const svgVersion = makeBadge({
 Die Funktion `makeBadge()` liefert einen String mit der Badge im SVG-Format.
 Ihr muss ein Objekt übergeben werden, in dem das Format der Badge beschrieben wird (siehe https://www.npmjs.com/package/badge-maker#format).
 
-In unserem Beispiel erhalten wir folgende Badge: ![version](assets/badges/version.svg)
+In unserem Beispiel erhalten wir folgenden Badge: ![version](assets/badges/version.svg)
 
 Gespeichert werden sollen unsere Badges im Verzeichnis `badges/`, welches zunächst erstellt werden muss:
 ```js
@@ -73,7 +73,7 @@ fs.writeFile('badges/version.svg', svgVersion, err => {
 Vereinen wir nun diese Codeschnipsel in einem Skript und führen dieses via `node scripts/badges.js` aus, finden wir anschließend ein neues Verzeichnis, `badges/`, welches die Datei `version.svg` beinhaltet.
 
 ### Der Badge in der README einbinden
-Schließlich müssen wir die jüngst erstelle Badge, `./badges/version.svg`, nur noch in der README einbinden:
+Schließlich müssen wir den jüngst erstellen Badge, `./badges/version.svg`, nur noch in der README einbinden:
 ```md
 <!-- README.md -->
 # Custom Badges ![version](badges/version.svg)
@@ -97,7 +97,7 @@ Nun werden die Badges jedes Mal neu erstellt, nachdem `npm install` ausgeführt 
 
 ## Noch mehr Badges!
 ### Anzahl veralteter Abhängigkeiten ![veraltet](assets/badges/outdated.svg)
-Folgende Badge zeigt an, wie viele Abhängigkeiten veraltet sind. Dies ist hilfreich, um immer auf dem neusten Stand zu bleiben. Um diese Anzahl herauszufinden, kann das Paket `npm-check` verwendet werden:
+Folgender Badge zeigt an, wie viele Abhängigkeiten veraltet sind. Dies ist hilfreich, um immer auf dem neusten Stand zu bleiben. Um diese Anzahl herauszufinden, kann das Paket `npm-check` verwendet werden:
 ```bash
 npm i -D npm-check
 ```
@@ -112,7 +112,7 @@ npmCheck().then(state => {
   const svgOutdated = makeBadge({
     label: 'outdated',
     message: String(numOutdated),  // Ganzzahl zu String konvertieren
-    color: ((numOutdated === 0) ? 'green' : 'red')  // grüne Badge, falls 0 veraltet sind, andernfalls rot
+    color: ((numOutdated === 0) ? 'green' : 'red')  // grüner Badge, falls 0 veraltet sind, andernfalls rot
   });
   fs.writeFile('badges/outdated.svg', svgOutdated, err => {
     if (err) console.error(err);
