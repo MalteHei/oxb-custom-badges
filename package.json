@@ -3,11 +3,11 @@
   "version": "1.1.0",
   "author": {
     "name": "Malte Heidemann",
-    "email": "malte.heidemann@ordix.de",
-    "url": "https://www.ordix.de"
+    "email": "malte.heidemann@ordix.de"
   },
   "contributors": [
-    "William Jones <william.jones@ordix.de>"
+    "William Jones <william.jones@ordix.de>",
+    "Maik Krawinkel <maik.krawinkel@ordix.de>"
   ],
   "scripts": {
     "postinstall": "npm run badges:make",
