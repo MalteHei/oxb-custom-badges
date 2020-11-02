@@ -3,6 +3,5 @@
 ![outdated](badges/outdated.svg)
 ![last updated](badges/last_updated.svg)
 ![badge-maker version](badges/dependency_version.svg)
-![contributors](badges/contributors.svg)
 
 Der Artikel ist [hier](./custom-badges.md) zu finden.
