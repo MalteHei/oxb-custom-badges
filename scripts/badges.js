@@ -9,6 +9,11 @@ fs.mkdir('badges', err => {
 });
 
 
+const logError = (err) => {
+  if (err) console.error(err);
+}
+
+
 // badge 'version'
 const version = require('../package.json').version;
 const svgVersion = makeBadge({
@@ -16,9 +21,7 @@ const svgVersion = makeBadge({
   message: version,
   color: 'blue',
 });
-fs.writeFile('badges/version.svg', svgVersion, err => {
-  if (err) console.error(err);
-});
+fs.writeFile('badges/version.svg', svgVersion, logError);
 
 
 // badge 'dependency version'
@@ -32,9 +35,7 @@ const svgDependencyVersion = makeBadge({
   message: dependencyVersion,
   color: 'blue',
 });
-fs.writeFile('badges/dependency_version.svg', svgDependencyVersion, err => {
-  if (err) console.error(err);
-});
+fs.writeFile('badges/dependency_version.svg', svgDependencyVersion, logError);
 
 
 // badge 'outdated dependencies'
@@ -45,25 +46,7 @@ npmCheck().then(state => {
     message: String(numOutdated),
     color: (numOutdated === 0 ? 'green' : 'red'),
   });
-
-  fs.writeFile('badges/outdated.svg', svgOutdated, err => {
-    if (err) console.error(err);
-  });
-});
-
-
-// badge 'contributors'
-let numContributors = 0;
-try {
-  numContributors = require('../package.json').contributors.length;
-} catch (e) {}
-const svgContributors = makeBadge({
-  label: 'contributors',
-  message: String(numContributors),
-  color: 'blue',
-});
-fs.writeFile('badges/contributors.svg', svgContributors, err => {
-  if (err) console.error(err);
+  fs.writeFile('badges/outdated.svg', svgOutdated, logError);
 });
 
 
@@ -74,6 +57,4 @@ const svgLastUpdated = makeBadge({
   message: today,
   color: 'blue',
 });
-fs.writeFile('badges/last_updated.svg', svgLastUpdated, err => {
-  if(err) console.error(err);
-});
+fs.writeFile('badges/last_updated.svg', svgLastUpdated, logError);
