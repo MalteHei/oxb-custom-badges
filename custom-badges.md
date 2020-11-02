@@ -52,8 +52,7 @@ const svgVersion = makeBadge({
 Die Funktion `makeBadge()` liefert einen String mit der Badge im SVG-Format.
 Ihr muss ein Objekt übergeben werden, in dem das Format der Badge beschrieben wird (siehe https://www.npmjs.com/package/badge-maker#format).
 
-In unserem Beispiel erhalten wir folgende Badge:<br>
-![version](assets/badges/version.svg)
+In unserem Beispiel erhalten wir folgende Badge: ![version](assets/badges/version.svg)
 
 Gespeichert werden sollen unsere Badges im Verzeichnis `badges/`, welches zunächst erstellt werden muss:
 ```js
