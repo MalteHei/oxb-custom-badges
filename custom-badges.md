@@ -38,7 +38,7 @@ Außerdem benötigen wir das Modul `fs`, welches in Node.js integriert ist und d
 ```js
 const fs = require('fs');
 ```
->`fs` ermöglicht Interaktionen mit dem Dateisystem und wird spätestens benötigt, sobald wir die Badge in einer Datei speichern wollen.
+>`fs` ermöglicht Interaktionen mit dem Dateisystem und wird spätestens benötigt, sobald wir der Badge in einer Datei speichern wollen.
 
 Nun können wir aus der extrahierten Version eine Badge erstellen:
 ```js
@@ -64,7 +64,7 @@ fs.mkdir('badges', err => {
 Da diese Funktion jedoch bei _jedem_ Aufruf ausgeführt wird, sollte man überprüfen, ob es überhaupt einen Fehler gibt.
 Außerdem wollen wir keinen Fehler ausgeben, wenn das Verzeichnis bereits existiert (der Fehlercode dafür ist `-17`).
 
-Zu guter Letzt speichern wir die Badge in `badges/version.svg`:
+Zu guter Letzt speichern wir der Badge in `badges/version.svg`:
 ```js
 fs.writeFile('badges/version.svg', svgVersion, err => {
   if (err) console.error(err);
@@ -72,7 +72,7 @@ fs.writeFile('badges/version.svg', svgVersion, err => {
 ```
 Vereinen wir nun diese Codeschnipsel in einem Skript und führen dieses via `node scripts/badges.js` aus, finden wir anschließend ein neues Verzeichnis, `badges/`, welches die Datei `version.svg` beinhaltet.
 
-### Die Badge in der README einbinden
+### Der Badge in der README einbinden
 Schließlich müssen wir die jüngst erstelle Badge, `./badges/version.svg`, nur noch in der README einbinden:
 ```md
 <!-- README.md -->
